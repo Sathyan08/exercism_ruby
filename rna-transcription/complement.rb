@@ -24,9 +24,7 @@ module Complement
   def self.create_complement(strand, complement_acids)
     complement = ''
 
-    strand.chars.each do |acid|
-      complement += complement_acids[acid]
-    end
+    strand.chars.each { |acid| complement += complement_acids[acid] }
 
     complement
   end
