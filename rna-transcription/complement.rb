@@ -1,38 +1,28 @@
 module Complement
 
   def self.of_dna(dna)
-    rna = ''
-
-    dna.chars.each do |acid|
-      if acid == 'G'
-        rna += 'C'
-      elsif acid == 'C'
-        rna += 'G'
-      elsif acid == 'A'
-        rna += 'U'
-      else
-        rna += 'A'
-      end
-    end
-
-    rna
+    self.create_complement(dna, "dna")
   end
 
   def self.of_rna(rna)
-    dna = ''
+    self.create_complement(rna, "rna")
+  end
 
-    rna.chars.each do |acid|
+  def self.create_complement(strand, strand_type)
+    complement = ''
+
+    strand.chars.each do |acid|
       if acid == 'G'
-        dna += 'C'
+        complement += 'C'
       elsif acid == 'C'
-        dna += 'G'
+        complement += 'G'
       elsif acid == 'A'
-        dna += 'T'
+        complement += 'T' if strand_type == "rna"
+        complement += 'U' if strand_type == "dna"
       else
-        dna += 'A'
+        complement += 'A'
       end
     end
-
-    dna
+    complement
   end
 end
