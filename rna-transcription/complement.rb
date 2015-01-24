@@ -1,28 +1,33 @@
 module Complement
 
+  def self.dna_complement_acids
+    complement_acids = {
+      "G" => "C",
+      "C" => "G",
+      "A" => "U",
+      "T" => "A"
+    }
+  end
+
+  def self.rna_complement_acids
+    self.dna_complement_acids.invert
+  end
+
   def self.of_dna(dna)
-    self.create_complement(dna, "dna")
+    self.create_complement(dna, self.dna_complement_acids)
   end
 
   def self.of_rna(rna)
-    self.create_complement(rna, "rna")
+    self.create_complement(rna, self.rna_complement_acids)
   end
 
-  def self.create_complement(strand, strand_type)
+  def self.create_complement(strand, complement_acids)
     complement = ''
 
     strand.chars.each do |acid|
-      if acid == 'G'
-        complement += 'C'
-      elsif acid == 'C'
-        complement += 'G'
-      elsif acid == 'A'
-        complement += 'T' if strand_type == "rna"
-        complement += 'U' if strand_type == "dna"
-      else
-        complement += 'A'
-      end
+      complement += complement_acids[acid]
     end
+
     complement
   end
 end
