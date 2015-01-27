@@ -1,53 +1,28 @@
+require_relative 'roman_map'
+require_relative 'digits'
+
 module Roman
+  include RomanMap
+  include Digits
 
-  def thousands_map
-    thousands = {
-      1 => 'M',
-      2 => 'MM',
-      3 => 'MMM'
-    }
+  def thousands_roman
+    thousands_map[thousands_value].nil? ? '' : thousands_map[thousands_value]
   end
 
-  def hundreds_map
-    hundreds = {
-      1 => 'C',
-      2 => 'CC',
-      3 => 'CCC',
-      4 => 'CD',
-      5 => 'D',
-      6 => 'DC',
-      7 => 'DCC',
-      8 => 'DCC',
-      9 => 'CM'
-    }
+  def hundreds_roman
+    hundreds_map[hundreds_value].nil? ? '' : hundreds_map[hundreds_value]
   end
 
-  def tens_map
-    tens = {
-      1 => 'X',
-      2 => 'XX',
-      3 => 'XXX',
-      4 => 'XL',
-      5 => 'L',
-      6 => 'LX',
-      7 => 'LXX',
-      8 => 'LXXX',
-      9 => 'XC'
-    }
+  def tens_roman
+    tens_map[tens_value].nil? ? '' : tens_map[tens_value]
   end
 
-  def ones_map
-    ones = {
-      1 => 'I',
-      2 => 'II',
-      3 => 'III',
-      4 => 'IV',
-      5 => 'V',
-      6 => 'VI',
-      7 => 'VII',
-      8 => 'VIII',
-      9 => 'IX'
-    }
+  def ones_roman
+    ones_map[ones_value].nil? ? '' : ones_map[ones_value]
+  end
+
+  def to_roman
+    thousands_roman + hundreds_roman + tens_roman + ones_roman
   end
 
 end
