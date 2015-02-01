@@ -3,7 +3,7 @@ module Prime
   def self.nth(num)
     data = { }
     data[:primes] = [2]
-    data[:counter] = 2
+    data[:counter] = 3
     self.has_nth_prime?(num, data)
   end
 
@@ -12,8 +12,8 @@ module Prime
   end
 
   def self.find_primes(num, data)
-    data[:counter] += 1
     data[:primes] << data[:counter] if self.prime?(data)
+    data[:counter] += 2
     self.has_nth_prime?(num, data)
   end
 
