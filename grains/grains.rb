@@ -10,13 +10,16 @@ class Grains
   end
 
   def total
-    (@spaces.length < @total_squares) ? add_space : sum_of_spaces
+    while @spaces.length < @total_squares
+      add_space
+    end
+
+    sum_of_spaces
   end
 
   def add_space
     new_space = @spaces.last * 2
     @spaces << new_space
-    total
   end
 
   def sum_of_spaces
