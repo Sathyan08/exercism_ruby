@@ -6,14 +6,27 @@ class Phrase
   attr_reader :words
 
   def initialize(words)
-    @words = normalized(words)
+    @words = scrubbed(words)
     @count = { }
     @counted = false
   end
 
+  def scrubbed(words)
+    not_compound = not_apostrophied(words)
+    apostrophied(words) + normalized(not_compound)
+  end
+
+  def apostrophied(words)
+    words.downcase.split.select { |word| word.include?("'") }
+  end
+
+  def not_apostrophied(words)
+    words.downcase.split - apostrophied(words)
+  end
+
   def normalized(words)
-    words.gsub!(/\W/, ' ')
-    words.downcase.split
+    cleaned = words.join(' ').gsub(/\W/, ' ')
+    cleaned.downcase.split
   end
 
   def tabulate
