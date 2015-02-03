@@ -66,7 +66,6 @@ class PhraseTest < MiniTest::Unit::TestCase
 
   def test_with_apostrophes
     phrase = Phrase.new("First: don't laugh. Then: don't cry.")
-    binding.pry
     counts = {
       'first' => 1, "don't" => 2, 'laugh' => 1,
       'then' => 1, 'cry' => 1
