@@ -1,45 +1,70 @@
+require 'pry'
+
 class Bob
 
   def hey(remark)
 
   end
 
+end
+
+module StringReader
+  def initialize(string)
+    @string = string
+  end
+end
+
+class StatementType
+  include StringReader
+
+  def call
+    return :silence if SilenceTest.new(@string).call
+    return :yelling if YellingTest.new(@string).call
+    return :question if QuestionTest.new(@string).call
+    :statement
+  end
 
 end
 
-class Statement
+class SilenceTest
+  include StringReader
 
-  def new(input)
-    @string = input
+  def call
+    test = @string.strip
+    test.empty?
   end
 
-  def type
-    return :silence if silence?
-    return :yelling if yelling?
-    return :question if question?
-    :statement
+end
+
+class YellingTest
+  include StringReader
+
+  def call
+    has_capitalized? && all_caps?
   end
 
   private
 
-  def silence?
-    @string.blank?
-  end
-
-  def yelling?
-    has_capitalized? && all_caps?
-  end
-
-  def question?
-    @string.chars.last == '?'
-  end
-
   def has_capitalized?
-    @string.scan(/A-Z/).count > 0
+    @string.scan(/[A-Z]/).count > 0
   end
 
-  def all_caps
+  def all_caps?
     @string.upcase == @string
   end
 
 end
+
+class QuestionTest
+  include StringReader
+
+  def call
+    @string.chars.last == '?'
+  end
+
+end
+
+
+
+s = StatementType.new(' ').call
+puts s
