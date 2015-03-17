@@ -3,7 +3,23 @@ require 'pry'
 class Bob
 
   def hey(remark)
+    interpretation = interpret(remark)
+    response_map[interpretation]
+  end
 
+  private
+
+  def interpret(remark)
+    StatementType.new(remark).call
+  end
+
+  def response_map
+    map = {
+      silence: 'Fine. Be that way!',
+      yelling: 'Whoa, chill out!',
+      question: 'Sure.',
+      statement: 'Whatever.'
+    }
   end
 
 end
