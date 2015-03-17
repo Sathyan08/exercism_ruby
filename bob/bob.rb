@@ -34,10 +34,31 @@ class StatementType
   include StringReader
 
   def call
-    return :silence if SilenceTest.new(@string).call
-    return :yelling if YellingTest.new(@string).call
-    return :question if QuestionTest.new(@string).call
-    :statement
+
+    if silence?
+      :silence
+    elsif yelling?
+      :yelling
+    elsif question?
+      :question
+    else
+      :statement
+    end
+
+  end
+
+  private
+
+  def silence?
+    SilenceTest.new(@string).call
+  end
+
+  def yelling?
+    YellingTest.new(@string).call
+  end
+
+  def question?
+    QuestionTest.new(@string).call
   end
 
 end
@@ -79,8 +100,3 @@ class QuestionTest
   end
 
 end
-
-
-
-s = StatementType.new(' ').call
-puts s
