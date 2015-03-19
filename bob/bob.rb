@@ -24,14 +24,13 @@ class Bob
 
 end
 
-module StringReader
+class StringReader
   def initialize(string)
     @string = string
   end
 end
 
-class StatementType
-  include StringReader
+class StatementType < StringReader
 
   def call
 
@@ -63,8 +62,7 @@ class StatementType
 
 end
 
-class SilenceTest
-  include StringReader
+class SilenceTest < StringReader
 
   def call
     test = @string.strip
@@ -73,8 +71,7 @@ class SilenceTest
 
 end
 
-class YellingTest
-  include StringReader
+class YellingTest < StringReader
 
   def call
     has_capitalized? && all_caps?
@@ -92,8 +89,7 @@ class YellingTest
 
 end
 
-class QuestionTest
-  include StringReader
+class QuestionTest < StringReader
 
   def call
     @string.chars.last == '?'
